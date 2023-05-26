@@ -132,10 +132,10 @@ router.get('/acquireToken', async function (req, res, next) {
     return redirectToAuthCodeUrl(req, res, next, authCodeUrlRequestParams, authCodeRequestParams)
 });
 
-router.post('/redirect', async function (req, res, next) {
+router.post('/openid/return', async function (req, res, next) {
     if (req.body.state) {
         const state = JSON.parse(cryptoProvider.base64Decode(req.body.state));
-
+        console.log(req.body)
         // check if csrfToken matches
         if (state.csrfToken === req.session.csrfToken) {
             req.session.authCodeRequest.code = req.body.code; // authZ code
